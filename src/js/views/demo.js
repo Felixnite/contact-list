@@ -7,37 +7,44 @@ import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
-
+	const [data, setData ] = useState({
+		full_name:"", email:"", phone:"", address:"", agenda_slug:"Felixnite_agenda"
+	})
+	const info = (event) => {
+		setData({
+			...data, [event.target.name]:event.target.value
+		})
+	}
+	const add = (event) => {
+		event.preventDefault()
+		actions.createContact(data)
+	}
 	return (
 		<div className="container">
-			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-			<br />
-			<Link to="/">
-				<button className="btn btn-primary">Back home</button>
-			</Link>
+		<form className="row g-3">
+			<div className="col-md-6">
+				<label htmlFor="inputEmail4" className="form-label">Full Name</label>
+				<input type="text" className="form-control" id="inputFullName" name="full_name" required value={data.full_name} onChange={info}/>
+			</div>
+			<div className="col-md-6">
+				<label htmlFor="inputPassword4" className="form-label">Email</label>
+				<input type="email" className="form-control" id="inputEmail" name="email" required value={data.email} onChange={info}/>
+			</div>
+			<div className="col-12">
+				<label htmlFor="inputAddress" className="form-label">Phone</label>
+				<input type="text" className="form-control" id="inputPhone" name="phone" required value={data.phone} onChange={info}/>
+			</div>
+			<div className="col-12">
+				<label htmlFor="inputAddress2" className="form-label">Address</label>
+				<input type="text" className="form-control" id="inputAddress" name="address" required value={data.address} onChange={info}/>
+			</div>
+			
+		
+			<div className="col-12">
+				<button type="submit" onClick={add} className="btn btn-primary">Create</button>
+			</div>
+		</form>
+		<Link to = "/">Volver a mis contactos</Link>
 		</div>
 	);
 };
