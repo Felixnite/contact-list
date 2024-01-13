@@ -58,7 +58,7 @@ export const Edit = () => {
 			
 		
 			<div className="col-12">
-				<button type="submit" onClick={edit} className="btn btn-primary"></button>
+				<button type="submit" onClick={edit} className="btn btn-primary">Edit</button>
 			</div>
 		</form>
 		<Link to = "/">Volver a mis contactos</Link>
